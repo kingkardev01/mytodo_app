@@ -20,7 +20,8 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: const Icon(Icons.calendar_view_day),
             ),
           ],
-        )
+        ),
+      body: Center(child: Text("this is project"),),
     );
   }
 }
