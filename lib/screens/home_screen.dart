@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -9,6 +11,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,8 +87,12 @@ class _HomeScreenState extends State<HomeScreen> {
 void _showDialog(context){
   showDialog(context: context,
       builder: (BuildContext context){
+
+        final TextEditingController taskNameController = TextEditingController();
+        final TextEditingController taskDescController = TextEditingController();
         var width = MediaQuery.of(context).size.width;
         var height = MediaQuery.of(context).size.height;
+
           return AlertDialog(
             scrollable: true,
             title: const Text(
@@ -99,6 +107,7 @@ void _showDialog(context){
                 child: Column(
                   children: <Widget>[
                     TextFormField(
+                      controller: taskNameController,
                       style: const TextStyle(fontSize: 14),
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
@@ -115,6 +124,7 @@ void _showDialog(context){
                     ),
                     const SizedBox(height: 15),
                     TextFormField(
+                      controller: taskDescController,
                       keyboardType: TextInputType.multiline,
                       maxLines: null,
                       style: const TextStyle(fontSize: 14),
@@ -152,7 +162,12 @@ void _showDialog(context){
                 child: const Text('Cancel'),
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  final taskName = taskNameController.text;
+                  final taskDesc = taskDescController.text;
+                  print(taskName);
+                  print(taskDesc);
+                },
                 child: const Text('Save'),
               ),
             ],
